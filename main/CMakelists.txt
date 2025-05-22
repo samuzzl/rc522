@@ -1,0 +1,34 @@
+# CMakeLists.txt para o componente 'main' do projeto
+
+# Lista dos arquivos fonte (.c) que pertencem a este componente 'main'.
+# Neste caso, é apenas o nosso main.c.
+idf_component_register(SRCS "main.c"
+                    INCLUDE_DIRS "."
+                    REQUIRES HCF_RC22
+                    )
+
+# Define o nome do executável que será gerado a partir deste componente 'main'.
+# O nome do projeto definido no CMakeLists.txt raiz será usado se não for especificado aqui.
+# Esta linha é opcional, mas pode ser útil para clareza.
+# set(COMPONENT_ELF_NAME "meu_rfid_app")
+
+# Dependências do componente 'main'.
+# O ESP-IDF geralmente lida com dependências comuns como 'freertos', 'esp_log', 'driver'.
+# Se o seu componente MFRC522_PT está na pasta 'components/', o ESP-IDF
+# também deve encontrá-lo e suas interfaces (arquivos .h) automaticamente.
+#
+# No entanto, se você encontrar problemas de compilação onde o compilador
+# não consegue encontrar "MFRC522_pt.h", ou se quiser ser explícito,
+# você pode adicionar a dependência aqui:
+#
+# set(COMPONENT_REQUIRES MFRC522_PT)
+#
+# Geralmente, para componentes na pasta 'components/', isso não é estritamente necessário
+# porque o sistema de build os torna disponíveis.
+# Adicionar dependências explícitas pode ajudar o CMake a entender melhor a ordem de compilação
+# e as ligações, mas para a estrutura padrão, o ESP-IDF é bom em inferir isso.
+
+# Registra este diretório como o componente 'main' (ou um componente executável).
+# Para o componente que contém app_main(), é comum usar idf_component_register.
+set(EXTRA_COMPONENT_DIRS $ENV{IDF_PATH}/examples/common_components/protocol_examples_common
+    )
